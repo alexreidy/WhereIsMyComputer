@@ -24,6 +24,7 @@
                     </ul>
                     <ul class="nav pull-right">
                         <li><a id="signInMenuLink" href="#signInModal" data-toggle="modal">Sign in</a></li>
+                        <li><a id="signOutMenuLink" href="#">Sign out</a></li>
                         <li><a href="#registerModal" data-toggle="modal">Register</a></li>
                     </ul>
                 </div>
