@@ -1,12 +1,8 @@
 <?php
 
-// add an ifset(flag) so errors don't show when people load x.php directly.
-
 session_start();
 
-$authorized = true;
-$script = 'database.php';
-require $script;
+require 'database.php';
 
 $id = $_SESSION['user'];
 
@@ -18,18 +14,44 @@ function clean($str) {
 
 switch ($_POST['action']) {
     case 'ADD_USER':
-        $script = 'add-user.php';
+        $username = clean($_POST['username']);
+        $password = md5(clean($_POST['password']));
+
+        $db->query("
+            INSERT INTO users (username, password)
+            VALUES ('{$username}', '{$password}');
+        ");
         break;
 
     case 'SIGN_IN':
-        $script = 'sign-in.php';
+        if (isset($_SESSION['user'])) die();
+
+        $username = clean($_POST['username']);
+        $password = md5(clean($_POST['password']));
+
+        $result = $db->query("
+            SELECT * FROM users
+            WHERE username='{$username}' AND password='{$password}';
+        ");
+
+        if ($result) {
+            $row = $result->fetch_array();
+            $_SESSION['user'] = $row['id'];
+            echo($_SESSION['user']);
+        }
         break;
 
     case 'UPDATE_LOCATION':
-        $script = 'update.php';
+        $latitude = clean($_POST['lat']);
+        $longitude = clean($_POST['lon']);
+
+        $db->query("
+            UPDATE users SET latitude={$latitude},
+            longitude={$longitude}
+            WHERE id={$id};
+        ");
         break;
 }
 
-require $script;
 
 ?>

@@ -1,1 +1,0 @@
-<?php if ( ! isset($authorized)) die("<center><h1>You are not permitted to view this script. Go away.</h1></center>"); ?>

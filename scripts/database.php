@@ -1,7 +1,5 @@
 <?php
 
-require 'auth.php';
-
 $db = new mysqli('127.0.0.1', 'root', '');
 $db_exists = $db->select_db('trackmypc');
 
