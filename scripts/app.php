@@ -4,7 +4,8 @@ session_start();
 
 require 'database.php';
 
-$id = $_SESSION['user'];
+if (isset($_SESSION['user']))
+    $id = $_SESSION['user'];
 
 function clean($str) {
     return mysql_real_escape_string(
@@ -17,39 +18,57 @@ switch ($_POST['action']) {
         $username = clean($_POST['username']);
         $password = md5(clean($_POST['password']));
 
-        $db->query("
+        $result = $db->query("
             INSERT INTO users (username, password)
             VALUES ('{$username}', '{$password}');
         ");
+
+        if ($result) echo("OK");
+        else echo("ERROR");
         break;
 
     case 'SIGN_IN':
-        if (isset($_SESSION['user'])) die();
+        if (isset($_SESSION['user'])) die("ERROR");
 
         $username = clean($_POST['username']);
         $password = md5(clean($_POST['password']));
 
         $result = $db->query("
             SELECT * FROM users
-            WHERE username='{$username}' AND password='{$password}';
+            WHERE username='{$username}'
+            AND password='{$password}';
         ");
 
         if ($result) {
             $row = $result->fetch_array();
-            $_SESSION['user'] = $row['id'];
-            echo($_SESSION['user']);
+            $id = $row['id'];
+            if ($id) {
+                $_SESSION['user'] = $id;
+                echo("OK");
+                break;
+            }
         }
+        echo("ERROR");
+        break;
+
+    case 'SIGN_OUT':
+        if (isset($_SESSION['user']))
+            unset($_SESSION['user']);
         break;
 
     case 'UPDATE_LOCATION':
         $latitude = clean($_POST['lat']);
         $longitude = clean($_POST['lon']);
 
-        $db->query("
-            UPDATE users SET latitude={$latitude},
-            longitude={$longitude}
-            WHERE id={$id};
-        ");
+        if (isset($id)) {
+            $db->query("
+                UPDATE users SET latitude={$latitude},
+                longitude={$longitude}
+                WHERE id={$id};
+            ");
+            echo("OK");
+        }
+        echo("ERROR");
         break;
 }
 
