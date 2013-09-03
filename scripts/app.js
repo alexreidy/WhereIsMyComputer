@@ -1,12 +1,18 @@
 $(document).ready(function() {
     var PRIMARY_SCRIPT = 'scripts/app.php';
     var map = document.getElementById('map');
+    var WORLD_MAP_URL = 'style/img/world-map.png';
+    var LOADING_GIF_URL = 'style/img/map-loader.gif';
     var coordinates = document.getElementById('coordinates');
     var prevLatitude = 0, prevLongitude = 0;
 
+    var userIsOnline = isLoggedIn();
+
     setInterval(updateMap, 3000);
     $('#signOutMenuLink').hide();
-    updateLinks();
+    updateLinks(userIsOnline);
+    if (userIsOnline) map.src = LOADING_GIF_URL;
+    else map.src = WORLD_MAP_URL;
 
     function isLoggedIn() {
         var online;
@@ -22,8 +28,8 @@ $(document).ready(function() {
         return online;
     }
 
-    function updateLinks() {
-        if (isLoggedIn()) {
+    function updateLinks(online) {
+        if (online) {
             $('#signInMenuLink').hide();
             $('#signOutMenuLink').show();
             $('#registerLink').hide();
@@ -73,7 +79,7 @@ $(document).ready(function() {
 
         prevLatitude = latitude, prevLongitude = longitude;
 
-        map.src = "http://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=17&size=600x300&maptype=roadmap&markers=color:red%7Clabel:x%7C" + latitude + "," + longitude + "&sensor=false";
+        map.src = "http://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=17&size=1000x400&maptype=roadmap&markers=color:red%7Clabel:x%7C" + latitude + "," + longitude + "&sensor=false";
         $('#coordinates').html(latitude + ', ' + longitude);
     }
 
@@ -112,6 +118,7 @@ $(document).ready(function() {
                 password: $('#pwForSignIn').val()
             }, function(data) {
                 if (data == 'OK') {
+                    map.src = 'style/img/map-loader.gif';
                     $('#signInModal').modal('hide');
                 } else {
                     alert("We couldn't sign you in. Make sure you enter your username and password correctly.");
@@ -119,13 +126,16 @@ $(document).ready(function() {
             });
         }
         $('#pwForSignIn').val('');
-        updateLinks();
+        updateLinks(isLoggedIn());
+        
     });
 
     $('#signOutMenuLink').click(function() {
-        $.post(PRIMARY_SCRIPT, {action: 'SIGN_OUT'}, updateLinks);
-        map.src = 'style/img/MapLoadingPic.gif'; $('#coordinates').html("");
+        $.post(PRIMARY_SCRIPT, {action: 'SIGN_OUT'}, function() {});
+        map.src = WORLD_MAP_URL;
+        $('#coordinates').html("");
         prevLatitude = 0, prevLongitude = 0;
+        updateLinks(false);
     });
 
 });

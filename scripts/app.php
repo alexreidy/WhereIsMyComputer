@@ -36,7 +36,7 @@ switch ($_POST['action']) {
         break;
 
     case 'SIGN_IN':
-        if (isset($_SESSION['user'])) die("ERROR");
+        if (isset($id)) die("ERROR");
 
         $username = clean($_POST['username']);
         $password = md5(clean($_POST['password']));
@@ -60,13 +60,20 @@ switch ($_POST['action']) {
         break;
 
     case 'SIGN_OUT':
-        if (isset($_SESSION['user']))
-            unset($_SESSION['user']);
+        if (isset($id)) unset($_SESSION['user']);
         break;
 
     case 'CHECK_SESSION':
         if (isset($id) && $id > 0)
             echo("SET");
+        break;
+
+    case 'LATITUDE':
+        if (isset($id)) echo(get_from_user($db, $id, 'latitude'));
+        break;
+
+    case 'LONGITUDE':
+        if (isset($id)) echo(get_from_user($db, $id, 'longitude'));
         break;
 
     case 'UPDATE_LOCATION':
@@ -82,14 +89,6 @@ switch ($_POST['action']) {
             echo("OK");
         }
         echo("ERROR");
-        break;
-
-    case 'LATITUDE':
-        echo(get_from_user($db, $id, 'latitude'));
-        break;
-
-    case 'LONGITUDE':
-        echo(get_from_user($db, $id, 'longitude'));
         break;
 }
 

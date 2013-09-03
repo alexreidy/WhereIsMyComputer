@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Where is my PC ?</title>
+        <title>Where is my computer?</title>
         <link rel="stylesheet" href="style/css/bootstrap.min.css">
         <style type="text/css">
-            body {
-                margin:20px;
-                margin-left:250px;
-                margin-right:250px;
+            #footer {
+                position:absolute;
+                text-align:center;
+                bottom:0;
+                width:100%;
+                height:40px;
             }
         </style>
     </head>
     <body>
         <div class="container">
-            <center><h1 style="color:#759595; font-family:georgia;">WhereIsMyPC ?</h1></center>
+            <center><h2 style="color:#6E8D6E; font-family:verdana;">WhereIsMyComputer? (Beta)</h2></center>
             <div class="navbar">
                 <div class="navbar-inner">
                     <button id="trackButton" class="btn"><i class="icon-map-marker"></i><i class="icon-screenshot"></i><i class="icon-globe"></i></button>
@@ -24,13 +26,13 @@
                     </ul>
                 </div>
             </div>
-            <div id="mapArea" class="container">
-                <center>
-                    <img id="map" src="style/img/MapLoadingPic.gif"></img>
-                    <p class="muted" id="coordinates"></p>
-                </center>
-                Change title and loader color.</br>Make nav smaller or map bigger.</br> FIX LOADER SO ONLY WHEN LOGGED IN; FIND REPLACEMENT OTHERWISE, LIKE A GENERIC MAP.
+            <div id="mapArea" class="container" style="text-align:center;">
+                <img id="map"></img>
+                <p class="muted" id="coordinates"></p>
             </div>
+        </div>
+        <div id="footer" style="text-align:center;">
+            <p class="muted">Created by <a class="muted" href="http://alexreidy.me">Alex Reidy</a></p>
         </div>
 
         <div class="modal fade" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="primaryModalLabel" aria-hidden="true">
