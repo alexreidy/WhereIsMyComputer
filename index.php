@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>LocateMyPC</title>
+        <title>Where is my PC ?</title>
         <link rel="stylesheet" href="style/css/bootstrap.min.css">
         <style type="text/css">
             body {
@@ -13,15 +13,23 @@
     </head>
     <body>
         <div class="container">
-            <center><h1 style="color:#759595; font-family:georgia;">LocateMyPC</h1></center>
+            <center><h1 style="color:#759595; font-family:georgia;">WhereIsMyPC ?</h1></center>
             <div class="navbar">
                 <div class="navbar-inner">
-                    <ul class="nav">
-                        <li><a id="signInMenuLink" href="#signInModal" data-toggle="modal">Sign in</a></li>
-                        <li><a id="signOutMenuLink" href="#">Sign out</a></li>
-                        <li><a id="registerLink" href="#registerModal" data-toggle="modal">Register</a></li>
+                    <button id="trackButton" class="btn"><i class="icon-map-marker"></i><i class="icon-screenshot"></i><i class="icon-globe"></i></button>
+                    <ul class="nav pull-right">
+                        <li><a id="signInMenuLink" href="#signInModal" data-toggle="modal"><i class="icon-user"></i> Sign in</a></li>
+                        <li><a id="signOutMenuLink" href="#"><i class="icon-off"></i> Sign out</a></li>
+                        <li><a id="registerLink" href="#registerModal" data-toggle="modal"><i class="icon-plus-sign"></i> Register</a></li>
                     </ul>
                 </div>
+            </div>
+            <div class="container">
+                <center>
+                    <img id="map" src="style/img/MapLoadingPic.gif"></img>
+                    <p class="muted" id="coordinates"></p>
+                </center>
+                Change title and loader color.</br>Make nav smaller or map bigger.
             </div>
         </div>
 

@@ -13,6 +13,14 @@ function clean($str) {
     );
 }
 
+function get_from_user($db, $id, $column) {
+    $result = $db->query("SELECT * FROM users WHERE id={$id};");
+    if ($result) {
+        $row = $result->fetch_array();
+        return $row[$column];
+    }
+}
+
 switch ($_POST['action']) {
     case 'ADD_USER':
         $username = clean($_POST['username']);
@@ -74,6 +82,14 @@ switch ($_POST['action']) {
             echo("OK");
         }
         echo("ERROR");
+        break;
+
+    case 'LATITUDE':
+        echo(get_from_user($db, $id, 'latitude'));
+        break;
+
+    case 'LONGITUDE':
+        echo(get_from_user($db, $id, 'longitude'));
         break;
 }
 
