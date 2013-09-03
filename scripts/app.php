@@ -56,6 +56,11 @@ switch ($_POST['action']) {
             unset($_SESSION['user']);
         break;
 
+    case 'CHECK_SESSION':
+        if (isset($id) && $id > 0)
+            echo("SET");
+        break;
+
     case 'UPDATE_LOCATION':
         $latitude = clean($_POST['lat']);
         $longitude = clean($_POST['lon']);

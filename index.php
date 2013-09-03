@@ -8,24 +8,18 @@
                 margin:20px;
                 margin-left:250px;
                 margin-right:250px;
-            } .navbar {margin-bottom:20px;}
+            }
         </style>
     </head>
     <body>
         <div class="container">
-
+            <center><h1 style="color:#759595; font-family:georgia;">LocateMyPC</h1></center>
             <div class="navbar">
                 <div class="navbar-inner">
-                    <a class="brand" href="#">LocateMyPC</a>
                     <ul class="nav">
-                        <li><a href="">About</a></li>
-                        <li><a href="">Link</a></li>
-                        <li class="pull-right"><a href="">Link</a></li>
-                    </ul>
-                    <ul class="nav pull-right">
                         <li><a id="signInMenuLink" href="#signInModal" data-toggle="modal">Sign in</a></li>
                         <li><a id="signOutMenuLink" href="#">Sign out</a></li>
-                        <li><a href="#registerModal" data-toggle="modal">Register</a></li>
+                        <li><a id="registerLink" href="#registerModal" data-toggle="modal">Register</a></li>
                     </ul>
                 </div>
             </div>

@@ -1,20 +1,43 @@
 $(document).ready(function() {
     var PRIMARY_SCRIPT = 'scripts/app.php';
-    var isLoggedIn = false;
 
     $('#signOutMenuLink').hide();
+    updateLinks();
 
     function isLoggedIn() {
-        return false;
+        var online;
+        $.ajax({
+            type: 'POST',
+            url: PRIMARY_SCRIPT,
+            async: false,
+            data: {action: 'CHECK_SESSION'}
+        }).done(function(data) {
+            if (data == 'SET') online = true;
+            else online = false;
+        });
+        return online;
     }
 
-    function startLocating() {
+    function updateLinks() {
+        if (isLoggedIn()) {
+            $('#signInMenuLink').hide();
+            $('#signOutMenuLink').show();
+            $('#registerLink').hide();
+        } else {
+            $('#signOutMenuLink').hide();
+            $('#signInMenuLink').show();
+            $('#registerLink').show();
+        }
+    }
+
+    function monitorLocation() {
         navigator.geolocation.watchPosition(
             function(position) {
                 var latitude = position.coords.latitude;
                 var longitude = position.coords.longitude;
                 $.post('scripts/app.php', {
-                    action: 'UPDATE_LOCATION', lat: latitude, lon: longitude
+                    action: 'UPDATE_LOCATION',
+                    lat: latitude, lon: longitude
                 }, function(data) {
 
                 });
@@ -28,34 +51,39 @@ $(document).ready(function() {
             username: $('#unForRegister').val(),
             password: $('#pwForRegister').val()
         }, function(data) {
-            alert(data);
+            var username = $('#unForRegister').val();
+            if (data == 'OK') {
+                $('#registerModal').modal('hide');
+                $('#unForSignIn').val(username);
+                $('#signInModal').modal('show');
+            } else {
+                alert('Sorry, the username "' + username + '" is taken.');
+            }
         });
     });
 
     $('#signInButton').click(function() {
-        if (!isLoggedIn) {
+        if (!isLoggedIn()) {
             $.post(PRIMARY_SCRIPT, {
                 action: 'SIGN_IN',
                 username: $('#unForSignIn').val(),
                 password: $('#pwForSignIn').val()
             }, function(data) {
-                if (data == "OK") {
-                    $('#signInMenuLink').hide();
-                    $('#signOutMenuLink').show();
+                if (data == 'OK') {
                     $('#signInModal').modal('hide');
-                    isLoggedIn = true;
+                } else {
+                    alert("We couldn't sign you in. Make sure you enter your username and password correctly.");
                 }
             });
-            $('#pwForSignIn').val('');
         }
+        $('#pwForSignIn').val('');
+        updateLinks();
     });
 
     $('#signOutMenuLink').click(function() {
         $.post(PRIMARY_SCRIPT, {action: 'SIGN_OUT'},
         function() {
-            isLoggedIn = false;
-            $('#signOutMenuLink').hide();
-            $('#signInMenuLink').show();
+            updateLinks();
         });
     });
 
