@@ -63,6 +63,7 @@ $(document).ready(function() {
     }
 
     function updateMap() {
+
         if (!isLoggedIn())
             return;
 
@@ -123,6 +124,8 @@ $(document).ready(function() {
 
     $('#signOutMenuLink').click(function() {
         $.post(PRIMARY_SCRIPT, {action: 'SIGN_OUT'}, updateLinks);
+        map.src = 'style/img/MapLoadingPic.gif'; $('#coordinates').html("");
+        prevLatitude = 0, prevLongitude = 0;
     });
 
 });

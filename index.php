@@ -24,12 +24,12 @@
                     </ul>
                 </div>
             </div>
-            <div class="container">
+            <div id="mapArea" class="container">
                 <center>
                     <img id="map" src="style/img/MapLoadingPic.gif"></img>
                     <p class="muted" id="coordinates"></p>
                 </center>
-                Change title and loader color.</br>Make nav smaller or map bigger.
+                Change title and loader color.</br>Make nav smaller or map bigger.</br> FIX LOADER SO ONLY WHEN LOGGED IN; FIND REPLACEMENT OTHERWISE, LIKE A GENERIC MAP.
             </div>
         </div>
 
