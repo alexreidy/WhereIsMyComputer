@@ -1,5 +1,6 @@
 <?php
 
+session_set_cookie_params(604800); // one week
 session_start();
 
 require 'database.php';
