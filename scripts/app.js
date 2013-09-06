@@ -8,7 +8,7 @@ $(document).ready(function() {
 
     var userIsOnline = isLoggedIn();
 
-    setInterval(updateMap, 3000);
+    setInterval(updateMap, 5000);
     $('#signOutMenuLink').hide();
     updateLinks(userIsOnline);
     if (userIsOnline) map.src = LOADING_GIF_URL;
@@ -120,14 +120,13 @@ $(document).ready(function() {
                 if (data == 'OK') {
                     map.src = 'style/img/map-loader.gif';
                     $('#signInModal').modal('hide');
+                    updateLinks(isLoggedIn());
                 } else {
                     alert("We couldn't sign you in. Make sure you enter your username and password correctly.");
                 }
             });
         }
         $('#pwForSignIn').val('');
-        updateLinks(isLoggedIn());
-        
     });
 
     $('#signOutMenuLink').click(function() {
