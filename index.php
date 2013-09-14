@@ -15,10 +15,10 @@
     </head>
     <body>
         <div class="container">
-            <center><h2 style="color:#6E8D6E; font-family:verdana;">WhereIsMyComputer? (Beta)</h2></center>
+            <center><h2 style="color:#6E8D6E; font-family:verdana;">WhereIsMyComputer?</h2></center>
             <div class="navbar">
                 <div class="navbar-inner">
-                    <button id="trackButton" class="btn"><i class="icon-map-marker"></i><i class="icon-screenshot"></i><i class="icon-globe"></i></button>
+                    <button id="trackButton" class="btn"><i class="icon-map-marker"></i><i class="icon-refresh"></i> Sync</button>
                     <ul class="nav pull-right">
                         <li><a id="signInMenuLink" href="#signInModal" data-toggle="modal"><i class="icon-user"></i> Sign in</a></li>
                         <li><a id="signOutMenuLink" href="#"><i class="icon-off"></i> Sign out</a></li>
@@ -26,6 +26,7 @@
                     </ul>
                 </div>
             </div>
+
             <div id="mapArea" class="container" style="text-align:center;">
                 <img id="map"></img>
                 <p class="muted" id="coordinates"></p>
