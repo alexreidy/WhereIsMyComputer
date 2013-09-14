@@ -89,6 +89,7 @@ $(document).ready(function() {
         } else {
             if (confirm("Are you sure you want to periodically send your location to the server? Your previous location will be overwritten.")) {
                 monitorLocation();
+                alert("While this web app is running, you can see this computer's location by logging in on another device.");
             }
         }
     });
