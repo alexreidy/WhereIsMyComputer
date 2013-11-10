@@ -8,9 +8,9 @@ require 'database.php';
 if (isset($_SESSION['user']))
     $id = $_SESSION['user'];
 
-function clean($str) {
+function clean($db, $str) {
     return mysql_real_escape_string(
-        strip_tags($str)
+        $db, strip_tags($str)
     );
 }
 
@@ -24,8 +24,8 @@ function get_from_user($db, $id, $column) {
 
 switch ($_POST['action']) {
     case 'ADD_USER':
-        $username = clean($_POST['username']);
-        $password = md5(clean($_POST['password']));
+        $username = clean($db, $_POST['username']);
+        $password = md5(clean($db, $_POST['password']));
 
         $result = $db->query("
             INSERT INTO users (username, password)
@@ -39,8 +39,8 @@ switch ($_POST['action']) {
     case 'SIGN_IN':
         if (isset($id)) die("ERROR");
 
-        $username = clean($_POST['username']);
-        $password = md5(clean($_POST['password']));
+        $username = clean($db, $_POST['username']);
+        $password = md5(clean($db, $_POST['password']));
 
         $result = $db->query("
             SELECT * FROM users
@@ -78,8 +78,8 @@ switch ($_POST['action']) {
         break;
 
     case 'UPDATE_LOCATION':
-        $latitude = clean($_POST['lat']);
-        $longitude = clean($_POST['lon']);
+        $latitude = clean($db, $_POST['lat']);
+        $longitude = clean($db, $_POST['lon']);
 
         if (isset($id)) {
             $db->query("
