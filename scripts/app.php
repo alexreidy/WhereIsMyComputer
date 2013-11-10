@@ -9,7 +9,7 @@ if (isset($_SESSION['user']))
     $id = $_SESSION['user'];
 
 function clean($db, $str) {
-    return mysql_real_escape_string(
+    return mysqli_real_escape_string(
         $db, strip_tags($str)
     );
 }
